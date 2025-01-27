@@ -33,10 +33,7 @@ class Spell:
 
 
     def __str__(self):
-        return ("Название заклинания ->", self.__spell_name,
-                "Уровень заклинания ->", self.__spell_lvl,
-                "Тип заклинания ->", self.__spell_type,
-                "Описания заклинания ->", self.__spell_description)
+        return f"Название заклинания -> {self.__spell_name}\nУровень заклинания -> {self.__spell_lvl}\nТип заклинания -> {self.__spell_type}\nОписания заклинания -> {self.__spell_description}"
 
 
 
@@ -207,8 +204,8 @@ class Robot:
         else:
             print("Уровень батареи не изменён.")
 
-    def change_status(self, status):
-        if status != self.__status_robot and self.__status_robot == bool:
+    def change_status(self, status: bool):
+        if status != self.__status_robot:
             self.__status_robot = status
             if self.__status_robot:
                 print("Робот перешёл в активное состояние.")
@@ -255,3 +252,75 @@ class Robot:
 task_1 = Task("Сортировка", 15)
 
 robot_connor = Robot(11244109, "Базовый андроид", "Сортировка", 87, "Перерыв")
+
+
+#3
+class Achievement:
+    def __init__(self, sport: str, year_got: int, quality: str):
+        self.__sport = sport
+        self.__year_got = year_got
+        self.__quality = quality
+
+
+class Athlete:
+    def __init__(self, name_athlete: str, age_athlete: int, sport_athlete: str, achievements_athlete: list, pension_athlete: bool):
+        self.__name_athlete = name_athlete
+        self.__age_athlete = age_athlete
+        self.__sport_athlete = sport_athlete
+        self.__achievements_athlete = achievements_athlete
+        self.__pension_athlete = pension_athlete
+
+    def add_achievement(self, achievement):
+        if achievement not in self.__achievements_athlete:
+            self.__achievements_athlete.append(achievement)
+            print("Успешно!")
+        else:
+            print("Список не обновлён.")
+
+    def delete_achievement(self, achievement):
+        if achievement not in self.__achievements_athlete:
+            self.__achievements_athlete.remove(achievement)
+            print("Успешно!")
+        else:
+            print("Список не обновлён.")
+
+    def set_name(self, name: str):
+        self.__name_athlete = name
+
+    def set_age(self, age: int):
+        self.__age_athlete = age
+
+    def set_sport(self, sport: str):
+        self.__sport_athlete = sport
+
+    def set_status(self, pension: bool):
+        self.__pension_athlete = pension
+
+    def get_name(self):
+        print(self.__name_athlete)
+
+    def get_age(self):
+        print(self.__age_athlete)
+
+    def get_sport(self):
+        print(self.__sport_athlete)
+
+    def get_achievements(self):
+        if self.__achievements_athlete != []:
+            print(self.__achievements_athlete)
+        else:
+            print("Достижений нет!")
+
+    def get_pension(self):
+        if self.__pension_athlete:
+            print("Да")
+        else:
+            print("Нет")
+
+    def __str__(self):
+        return f"Имя: {self.__name_athlete}\nВозраст: {self.__age_athlete}\nСпорт: {self.__sport_athlete}\nСписок достижений: {"Нет" if self.__achievements_athlete == [] else self.__achievements_athlete}\nСтатус пенсии: {"Да" if self.__pension_athlete else "Нет"}"
+
+
+achievement_1 = Achievement("Лыжный спорт", 2009, "Золото")
+
+vasia = Athlete("Вася", 36, "Лыжный спорт", [], True)

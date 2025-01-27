@@ -157,10 +157,101 @@ class Employee:
     def __str__(self):
         return f"Имя: {self.__name_emp}\nДолжность: {self.__post_emp}\nОтдел: {self.__division_emp}\nЗарплата: {self.__salary_emp}\nСтаж: {self.__experience_emp}\nСписок проектов:{self.__projects_emp}"
 
+    def add_salary(self, salary: int):
+        self.__salary_emp += salary
+        print("Текущая зарплата ->", self.__salary_emp)
+
+    def delete_project(self, project):
+        if project not in self.__projects_emp:
+            print("Проект не был найден.")
+        else:
+            self.__projects_emp.remove(project)
+            print("Проект удалён!")
+
 
 project_1 = Project("Игрулька", 2025, False)
 
 grisha = Employee("Гриша", "девопс", "разработка текстов", 270000, 2, [])
 
-grisha.add_project(project_1)
+#grisha.add_project(project_1)
 #grisha.get_projects_list() # ???
+
+
+#3
+class Task:
+    def __init__(self, name_task: str, time_minute_task: int, status_task: bool = False):
+        self.__name_task = name_task
+        self.__time_minute_task = time_minute_task
+        self.__status_task = status_task
+
+
+class Robot:
+    def __init__(self, factory_number_robot: int, model_robot: str, task_robot: str, batary_lvl_robot: int, status_robot: str):
+        self.__factory_number_robot = factory_number_robot
+        self.__model_robot = model_robot
+        self.__task_robot = task_robot
+        self.__batary_lvl_robot = batary_lvl_robot
+        self.__status_robot = status_robot
+
+    def new_task(self, task: str):
+        if task.status_task and task != self.__task_robot: # ???
+            self.__task_robot = task
+            print("Новая задача поставлена!")
+        else:
+            print("Задача не изменена.")
+
+    def change_batary_lvl(self, lvl: int):
+        if self.__batary_lvl_robot != lvl and lvl > -1:
+            self.__batary_lvl_robot = lvl
+            print("Уровень батареи обновлён!")
+        else:
+            print("Уровень батареи не изменён.")
+
+    def change_status(self, status):
+        if status != self.__status_robot and self.__status_robot == bool:
+            self.__status_robot = status
+            if self.__status_robot:
+                print("Робот перешёл в активное состояние.")
+            else:
+                print("Робот ушёл на перерыв.")
+        else:
+            print("Статус не изменён.")
+
+    def set_factory_number(self, factory_number: int):
+        self.__factory_number_robot = factory_number
+        print("Успешно!")
+
+
+    def set_model(self, model: str):
+        self.__model_robot = model
+        print("Успешно!")
+
+    def set_task(self, task: str):
+        self.__task_robot = task
+        print("Успешно!")
+
+    def set_batary_lvl(self, batary_lvl: int):
+        self.__batary_lvl_robot = batary_lvl
+        print("Успешно!")
+
+    def get_factory_number(self):
+        print(self.__factory_number_robot)
+
+    def get_model(self):
+        print(self.__model_robot)
+
+    def get_task(self):
+        print(self.__task_robot)
+
+    def get_batary(self):
+        print(self.__batary_lvl_robot)
+
+    def get_status(self):
+        print(self.__status_robot)
+
+    def __str__(self):
+        return f"Серийный номер: {self.__factory_number_robot}\nМодель: {self.__model_robot}\nЗадача: {self.__task_robot}\nУровень заряда ботареи: {self.__batary_lvl_robot}\nСтатус: {self.__status_robot}"
+
+task_1 = Task("Сортировка", 15)
+
+robot_connor = Robot(11244109, "Базовый андроид", "Сортировка", 87, "Перерыв")

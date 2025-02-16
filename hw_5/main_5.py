@@ -1,3 +1,4 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 
 # 1.1
@@ -188,7 +189,8 @@ class Account:
 
     @abstractmethod
     def money_to_state(self, cost: int):
-        if DebitAccount.get_balance >= cost:
+        balance = DebitAccount.get_balance()
+        if balance >= cost:
             DebitAccount.get_balance -= cost
             return "Успешно!"
         else:
@@ -208,6 +210,9 @@ class DebitAccount(BankClient):
     def __init__(self, card_number, cvv, passport, balance: int):
         self.__balance = balance
         super().__init__(card_number, cvv, passport)
+
+    def get_balance(self) -> int:
+        return self.__balance
 
 class ATransaction(DebitAccount):
     def __init__(self, card_number, cvv, passport, balance):

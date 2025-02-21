@@ -135,9 +135,15 @@ class Cow(AFarmAnimal):
     def __init__(self, name):
         super().__init__(name)
 
+    def give_milk(self):
+        return "Молоко получено!"
+
 class Sheep(AFarmAnimal):
     def __init__(self, name):
         super().__init__(name)
+
+    def give_wool(self):
+        return "Шерсть получена!"
 
 class Chicken(AFarmAnimal):
     def __init__(self, name):
@@ -150,6 +156,9 @@ class Pig(AFarmAnimal):
     def __init__(self, name):
         super().__init__(name)
 
+    def drink(self):
+        return "*Бульк бульк бульк*"
+
 class AFarmTransport(ABC):
     def __init__(self, case: str):
         self._case = case
@@ -158,27 +167,20 @@ class AFarmTransport(ABC):
     def working(self, status: bool): pass
 
 class Tractor(AFarmTransport):
-    def __init__(self, case):
+    def __init__(self, case, modules: list):
         super().__init__(case)
+        self.__modules = modules
+
+    def add_module(self, other: str):
+        self.__modules.append(other)
 
 class Harvester(AFarmTransport):
-    def __init__(self, case):
+    def __init__(self, case, driver_name: str):
         super().__init__(case)
+        self.__driver_name = driver_name
 
-class AGrainCrop(ABC):
-    def __init__(self, capacity: int):
-        self._capacity = capacity
-
-    @abstractmethod
-    def content(self, status: bool): pass
-
-class Greenhouse(AGrainCrop):
-    def __init__(self, capacity):
-        super().__init__(capacity)
-
-class Storage(AGrainCrop):
-    def __init__(self, capacity):
-        super().__init__(capacity)
+    def new_driver(self, name: str):
+        self.__driver_name = name
 
 
 # 2.2
@@ -222,15 +224,17 @@ class ATransaction(DebitAccount):
     def money_transfer(self, number: int): pass
 
 class ATM(ATransaction):
-    def __init__(self, card_number, cvv, passport, balance):
+    def __init__(self, card_number, cvv, passport, balance, turn_count: int):
         super().__init__(card_number, cvv, passport, balance)
+        self.__turn_count = turn_count
 
     def money_transfer(self, number: int):
         return "Транзакция через банкомат!"
 
 class OnlineBaking(ATransaction):
-    def __init__(self, card_number, cvv, passport, balance):
+    def __init__(self, card_number, cvv, passport, balance, ping_time: int):
         super().__init__(card_number, cvv, passport, balance)
+        self.__ping_time = ping_time
 
     def money_transfer(self, number: int):
         return "Транзакция через онлайн-банк!"
@@ -250,10 +254,13 @@ class Manager(ABankWorker):
     def tea_time(self):
         return "Чаёк менеджеру!"
 
+    def break_time(self, time: int):
+        return f"Перерыв {time} минут!"
 
 class Cashier(ABankWorker):
-    def __init__(self, name, stage):
+    def __init__(self, name, stage, money: int):
         super().__init__(name, stage)
+        self.__money = money
 
     def tea_time(self):
         return "Чаёк кассиру!"
